@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Packages
+    'widget_tweaks',
     # My apps
     'apps.staticpages',
     'apps.eddies',
