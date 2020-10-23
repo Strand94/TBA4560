@@ -1,38 +1,85 @@
-{% load widget_tweaks %}
+<form method="post" novalidate>
+    {{ form.media }}
+    {% csrf_token %}
 
-{% for hidden_field in form.hidden_fields %}
-  {{ hidden_field }}
-{% endfor %}
+    <div class="field_div">
+        <p>
+            {{ form.north_west_lat.label_tag }}<br>
+            {{ form.north_west_lat }}
+            {% if form.north_west_lat.help_text %}
+                <small class="form-text text-muted">{{ form.north_west_lat.help_text }}</small>
+            {% endif %}
+            {% for error in form.north_west_lat.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </p>
+    </div>
 
-{% if form.non_field_errors %}
-  <div class="alert alert-danger" role="alert">
-    {% for error in form.non_field_errors %}
-      {{ error }}
-    {% endfor %}
-  </div>
-{% endif %}
+    <div class="field_div">
+        <p>
+            {{ form.north_west_lon.label_tag }}<br>
+            {{ form.north_west_lon }}
+            {% if form.north_west_lon.help_text %}
+                <small class="form-text text-muted">{{ form.north_west_lon.help_text }}</small>
+            {% endif %}
+            {% for error in form.north_west_lon.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </p>
+    </div>
 
-{% for field in form.visible_fields %}
-  <div class="form-group">
-    {{ field.label_tag }}
+    <div class="field_div">
+        <p>
+            {{ form.south_east_lat.label_tag }}<br>
+            {{ form.south_east_lat }}
+            {% if form.south_east_lat.help_text %}
+                <small class="form-text text-muted">{{ form.south_east_lat.help_text }}</small>
+            {% endif %}
+            {% for error in form.south_east_lat.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </p>
+    </div>
 
-    {% if form.is_bound %}
-      {% if field.errors %}
-        {% render_field field class="form-control is-invalid" %}
-        {% for error in field.errors %}
-          <div class="invalid-feedback">
-            {{ error }}
-          </div>
-        {% endfor %}
-      {% else %}
-        {% render_field field class="form-control is-valid" %}
-      {% endif %}
-    {% else %}
-      {% render_field field class="form-control" %}
-    {% endif %}
+    <div class="field_div">
+        <p>
+            {{ form.south_east_lon.label_tag }}<br>
+            {{ form.south_east_lon }}
+            {% if form.south_east_lon.help_text %}
+                <small class="form-text text-muted">{{ form.south_east_lon.help_text }}</small>
+            {% endif %}
+            {% for error in form.south_east_lon.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </p>
+    </div>
 
-    {% if field.help_text %}
-      <small class="form-text text-muted">{{ field.help_text }}</small>
-    {% endif %}
-  </div>
-{% endfor %}
+    <div class='input-group date' id='datetimepicker6'>
+        <p>
+            <h4>Start date and time:</h4>
+            <br>
+            {{ form.start_time }}
+            {% if form.start_time.help_text %}
+                <small class="form-text text-muted">{{ form.start_time.help_text }}</small>
+            {% endif %}
+            {% for error in form.start_time.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </p>
+    </div>
+    <div class="field_div">
+        <p>
+            <h4>End date and time:</h4>
+            <br>
+            {{ form.end_time }}
+            {% if form.end_time.help_text %}
+                <small class="form-text text-muted">{{ form.end_time.help_text }}</small>
+            {% endif %}
+            {% for error in form.end_time.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </p>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

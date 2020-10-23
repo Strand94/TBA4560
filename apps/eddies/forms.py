@@ -1,4 +1,5 @@
 from django import forms
+from bootstrap_datepicker_plus import DateTimePickerInput
 
 
 class SearchAreaForm(forms.Form):
@@ -8,8 +9,9 @@ class SearchAreaForm(forms.Form):
     south_east_lat = forms.FloatField(min_value=-90, max_value=90)
     south_east_lon = forms.FloatField(min_value=-90, max_value=90)
 
-    start_time = forms.DateTimeField()
-    end_time = forms.DateTimeField()
+    start_time = forms.DateTimeField(widget=DateTimePickerInput().start_of('event days'))
+    end_time = forms.DateTimeField(widget=DateTimePickerInput().end_of('event days'))
+
 
     def clean(self):
         cleaned_data = super(SearchAreaForm, self).clean()

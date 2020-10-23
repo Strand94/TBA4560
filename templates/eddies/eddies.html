@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Home{% endblock title %}
+
+
+
 {% block content %}
+
     <div class="container clearfix">
         <div class="jumbotron">
             <h1>Welcome</h1>
             <p class="lead">This is eddies</p>
 
-                <form method="post" novalidate>
-                  {% csrf_token %}
-                  {% include 'eddies/search_area_form.html' with form=form %}
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-
-
+            {% include 'eddies/search_area_form.html' %}
 
         </div>
     </div> <!-- /container -->
+
+
+
 {% endblock content %}

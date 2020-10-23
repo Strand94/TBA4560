@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Packages
     'widget_tweaks',
+    'bootstrap_datepicker_plus',
     # My apps
     'apps.staticpages',
     'apps.eddies',

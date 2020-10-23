@@ -9,13 +9,8 @@ def eddies(request):
     if request.method == 'POST':
         form = SearchAreaForm(request.POST)
         if form.is_valid():
-            NW_corner = form.cleaned_data['north_west_lat']
-
-
-
-
-            print(form.cleaned_data['north_west_lat'])
-
+            print("success!")
+            nw_corner = form.cleaned_data['north_west_lat']
             pass  # does nothing, just trigger the validation
     else:
         form = SearchAreaForm()
