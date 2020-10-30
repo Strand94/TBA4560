@@ -3,6 +3,7 @@ from .forms import SearchAreaForm
 from pydap.client import open_url
 import numpy as np
 from datetime import timedelta
+from .cygnss.valid_point import ValidPoint
 
 
 def eddies(request):
@@ -15,14 +16,10 @@ def eddies(request):
             selected_dates = [start + timedelta(days=x) for x in range(0, (end.date() - start.date()).days)]
             selected_dates.append(end)
 
-            for date in selected_dates:
-                for satellite_number in range(1, 9):
-                    url = generate_url(date, satellite_number)
-                    collect_data(url)
-
-
-
-
+            #for date in selected_dates:
+            #   for satellite_number in range(1, 9):
+            #        url = generate_url(date, satellite_number)
+            #        collect_data(url)
 
     else:
         form = SearchAreaForm()
@@ -47,3 +44,4 @@ def collect_data(url):
     dataset = open_url(url+query)
     spacecraft_id = dataset['spacecraft_id'][:].data
     print(spacecraft_id)
+

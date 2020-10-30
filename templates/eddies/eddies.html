@@ -19,3 +19,12 @@
 
 
 {% endblock content %}
+
+{% block script %}
+$(document).ready(function() {
+  $('#myForm').ajaxForm(function(message) {
+    $('.popup').html(message);
+    $('.popup').show()
+  });
+});
+{% endblock %}

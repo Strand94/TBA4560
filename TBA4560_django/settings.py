@@ -6,8 +6,19 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
+# https://stackoverflow.com/questions/49139044/geodjango-on-windows-could-not-find-the-gdal-library-oserror-winerror-12
 
 import os
+if os.name == 'nt':
+    import platform
+    OSGEO4W = r"C:\OSGeo4W"
+    if '64' in platform.architecture()[0]:
+        OSGEO4W += "64"
+    assert os.path.isdir(OSGEO4W), "Directory does not exist: " + OSGEO4W
+    os.environ['OSGEO4W_ROOT'] = OSGEO4W
+    os.environ['GDAL_DATA'] = OSGEO4W + r"\share\gdal"
+    os.environ['PROJ_LIB'] = OSGEO4W + r"\share\proj"
+    os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -38,6 +49,7 @@ INSTALLED_APPS = [
     # Packages
     'widget_tweaks',
     'bootstrap_datepicker_plus',
+    'leaflet',
     # My apps
     'apps.staticpages',
     'apps.eddies',
