@@ -5,9 +5,16 @@
 
     <hr>
 
-    <h4>Select focus area:</h4>
-
-    {% leaflet_map "detailmap" callback="window.map_init" %}
+    <div>
+        <p>
+            <h4>Grid area:</h4>
+            <br>
+                    {{ form.grid }}
+            {% for error in form.grid.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </p>
+    </div>
 
     <br>
 
@@ -42,3 +49,52 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
+{% block script %}
+    <script>
+        var map = L.map('id_grid-map', {drawControl: true}).setView([0, 0], 1);
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+
+        var rect;
+
+        var markerA = L.marker([33, -72], {title: "Point A", draggable: true})
+		.addTo(map)
+		.on('dragend', function() {
+			var coord = String(markerA.getLatLng()).split(',');
+			var lat = coord[0].split('(');
+			var lng = coord[1].split(')');
+			CreateRectangle();
+		});
+
+       var markerB = L.marker([27, -60], {title: "Point B", draggable: true})
+		.addTo(map)
+		.on('dragend', function() {
+			var coord = String(markerB.getLatLng()).split(',');
+			var lat = coord[0].split('(');
+			var lng = coord[1].split(')');
+            CreateRectangle();
+		});
+
+        CreateRectangle();
+
+        function CreateRectangle(){
+            var bounds = [[Object.values(Object.values(markerA)[1])[0], Object.values(Object.values(markerA)[1])[1]],[Object.values(Object.values(markerB)[1])[0], Object.values(Object.values(markerB)[1])[1]]];
+
+
+            if(rect)
+            {
+                map.removeLayer(rect); // remove the old polygon...
+            }
+
+            rect = L.rectangle(bounds, {color: 'blue', weight: 1}).on('click', function (e) {
+                // There event is event object
+                // there e.type === 'click'
+                // there e.lanlng === L.LatLng on map
+                // there e.target.getLatLngs() - your rectangle coordinates
+                // but e.target !== rect
+                console.info(e);
+            }).addTo(map);
+
+        }
+
+    </script>
+{% endblock %}
