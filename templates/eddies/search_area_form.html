@@ -16,7 +16,14 @@
         </p>
     </div>
 
-    <br>
+    <p>Selected coordinates:</p>
+    <label for="coordinate_a">Your name: </label>
+    <input readonly id="coordinate_a" type="text" name="coordinate_a" value="33, -71">
+
+    <label for="coordinate_b">Your name: </label>
+    <input readonly id="coordinate_b" type="text" name="coordinate_b" value="33, -72">
+
+    <hr>
 
     <div class='input-group date' id='datetimepicker6'>
         <p>
@@ -51,6 +58,7 @@
 
 {% block script %}
     <script>
+
         var map = L.map('id_grid-map', {drawControl: true}).setView([0, 0], 1);
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
@@ -62,6 +70,7 @@
 			var coord = String(markerA.getLatLng()).split(',');
 			var lat = coord[0].split('(');
 			var lng = coord[1].split(')');
+			document.getElementById("coordinate_a").value = ""+lat[1]+", "+lng[0]+"";
 			CreateRectangle();
 		});
 
@@ -71,6 +80,7 @@
 			var coord = String(markerB.getLatLng()).split(',');
 			var lat = coord[0].split('(');
 			var lng = coord[1].split(')');
+			document.getElementById("coordinate_b").value = ""+lat[1]+", "+lng[0]+"";
             CreateRectangle();
 		});
 
